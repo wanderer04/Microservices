@@ -49,8 +49,24 @@ const menuItems: MenuItem[] = [
 function App() {
   const [orders, setOrders] = useState<number[]>([]);
 
-  const handleOrder = (itemId: number) => {
+  const handleOrder = async (itemId: number) => {
     setOrders([...orders, itemId]);
+    const url = "http://localhost:5000/confirm-order";
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Specify JSON format
+      },
+      body: JSON.stringify({
+        email: "adarshmohapatra10@gmail.com",
+        food: "Artisanal Burger",
+      }),
+      // ...
+    });
+    alert(
+      "Confirmed order!! Artisanal Burger will be Delivered shortly\nThis message was sent from microservice 1"
+    );
   };
 
   return (
